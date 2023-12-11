@@ -1,2 +1,29 @@
 # Arduino-con-Potenziometro.3
 powerpoint https://1drv.ms/p/s!AvizvZV1FCvE9iDtvKsGpouzgsqR?e=Hl3iL1 youtube https://www.youtube.com/@ISTITUTOFREUD_ivecchisolitari Video https://www.youtube.com/watch?v=_dU5Gnt7b5A&amp;t=2s
+
+codice led in serie 
+
+const int analogPin = A0; // the pin that the potentiometer is attached to
+const int ledCount = 5; // the number of LEDs in the bar graph
+int ledPins[] = {2, 3, 4, 5, 6}; // an array of pin numbers to which LEDs are attached
+void setup() {
+// ciclo for. thisled è una variabile muta, parte da zero e aumenta di 1 finché non arriva al n° totale
+for (int thisLed = 0; thisLed < ledCount; thisLed++) {
+pinMode (ledPins [thisLed], OUTPUT);
+}
+}
+void loop() {
+// sensorReading legge il sensore
+int sensorReading = analogRead (analogPin) ;
+// map è una funzione che prende il valore del sensorReading e lo trasforma da 0 a ledCoount: sensorReadiing che inizialmente va da 0 a 1023 poi cambia da 0 a ledCount
+int ledLevel = map (sensorReading, 0, 1023, 0, ledCount);
+// ciclo for
+for (int thisLed = 0; thisLed < ledCount; thisLed++) {
+// per ogni giro di ciclo for thisLed ha un unico valore
+if (thisLed < ledLevel) {
+digitalWrite (ledPins [thisLed], HIGH);
+}else { // con digitalWrite si accendono i LED
+digitalWrite (ledPins[thisLed], LOW);
+}
+}
+}
